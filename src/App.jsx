@@ -55,35 +55,43 @@ const Portfolio = () => {
       category: "cpp",
       tech: ["C++", "Lógica Matemática", "Algoritmos"],
       description: "Simulador de competencia de dados por turnos desarrollado para la UTN. Integra lógica compleja de rondas, sistema de puntuación acumulativa, validaciones estrictas de entrada y animaciones por consola. Enfocado en la eficiencia algorítmica y la estructuración modular del código.",
-      highlight: false
+      highlight: false,
+      repoUrl: "https://github.com/lenase0077/Enfrentados"
+
     },
     {
       title: "Algoritmos de Machine Learning",
       category: "python",
       tech: ["Python", "Scikit-learn", "Pandas", "Matplotlib"],
       description: "Implementación de modelos de aprendizaje supervisado y no supervisado (Regresión Lineal/Múltiple, KNN, Árboles de Decisión). Incluye limpieza de datasets reales, feature engineering y evaluación de métricas (MSE, Accuracy) en Jupyter Notebooks.",
-      highlight: false
+      highlight: false,
+      repoUrl: "https://github.com/lenase0077/Proyectos-Machine-Learning"
     },
     {
       title: "Dashboard de Terrorismo Global",
       category: "data",
       tech: ["Power BI", "DAX", "Power Query"],
       description: "Análisis interactivo de datos históricos (1970-2017). Visualizaciones geoespaciales dinámicas y modelado de datos complejo para identificar patrones por región y grupos. Limpieza profunda de datos crudos.",
-      highlight: false
+      highlight: false,
+      repoUrl: "https://github.com/lenase0077/Attempt-Report-PowerBI-analysis"
+
     },
     {
       title: "Nuestro Café - E-commerce",
       category: "web",
       tech: ["Python", "Flask", "HTML/CSS", "JS"],
       description: "Aplicación web Fullstack desplegada en PythonAnywhere. Frontend moderno y responsivo con backend ligero en Flask para el enrutamiento y manejo de lógica del servidor.",
-      highlight: false
+      highlight: false,
+      repoUrl: "https://github.com/lenase0077/Coffee-style"
+
     },
     {
       title: "Suite de Testing Manual",
       category: "qa",
       tech: ["JIRA", "Test Cases", "Bug Tracking"],
       description: "Diseño y ejecución de planes de prueba para aplicaciones web. Creación de casos de prueba detallados, reporte de bugs en JIRA y validación de criterios de aceptación.",
-      highlight: false
+      highlight: false,
+      repoUrl: "https://github.com/lenase0077/Proyecto-Testing-Manual"
     }
   ];
 
@@ -263,8 +271,13 @@ const Portfolio = () => {
                     <div className={`p-3 rounded-lg ${project.category === 'cpp' ? 'bg-blue-900/30 text-blue-400' : project.category === 'python' ? 'bg-yellow-900/30 text-yellow-400' : 'bg-purple-900/30 text-purple-400'}`}>
                       {project.category === 'cpp' ? <Gamepad2 size={24} /> : project.category === 'python' ? <Cpu size={24} /> : <Globe size={24} />}
                     </div>
-                    <a href={`https://${contactInfo.github}`} target="_blank" rel="noreferrer" className="text-slate-500 hover:text-white transition-colors">
-                      <ExternalLink size={20} />
+                    <a 
+                        href={project.repoUrl || `https://${contactInfo.github}`} 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="text-slate-500 hover:text-white transition-colors"
+                    >
+                        <ExternalLink size={20} />
                     </a>
                   </div>
 
