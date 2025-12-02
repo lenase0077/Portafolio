@@ -161,13 +161,15 @@ const Portfolio = () => {
             <a href={`https://${contactInfo.github}`} target="_blank" rel="noreferrer" className="p-2 bg-slate-700 hover:bg-slate-600 rounded-full transition-colors" title="GitHub">
               <Github size={20} />
             </a>
-            <button 
-              onClick={() => alert("Función para descargar PDF simulada. En un entorno real, esto descargaría tu PDF.")}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-all transform hover:scale-105 ml-2"
-            >
-              <Download size={18} />
-              <span>Descargar CV</span>
-            </button>
+                <a 
+                  href="/Leandro_Serrano_CV.pdf" 
+                  download="Leandro_Serrano_CV.pdf"
+                  // Aquí usamos las clases de Tailwind que tenía el botón:
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-medium transition-all transform hover:scale-105 ml-2"
+                >
+                  <Download size={18} />
+                  <span>Descargar CV</span>
+                </a>
           </div>
         </div>
       </header>
