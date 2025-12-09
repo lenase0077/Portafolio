@@ -154,59 +154,64 @@ const Portfolio = () => {
         initial={{ y: -100 }} animate={{ y: 0 }}
         className="fixed top-0 w-full z-50 backdrop-blur-md border-b transition-colors duration-700"
         style={{ 
-            backgroundColor: isCozy ? 'rgba(40, 20, 10, 0.6)' : 'rgba(0, 0, 0, 0.4)',
+            backgroundColor: isCozy ? 'rgba(40, 20, 10, 0.8)' : 'rgba(0, 0, 0, 0.7)', // Más opacidad en móvil para leer mejor
             borderColor: isCozy ? 'rgba(249, 115, 22, 0.2)' : 'rgba(255, 255, 255, 0.05)'
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+        {/* Usamos flex-col en móvil y row en desktop. Padding reducido en móvil (py-3) */}
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
           <div className="text-center md:text-left">
             <h1 
-                className="text-3xl font-black tracking-tighter text-transparent bg-clip-text hover:scale-105 transition-transform cursor-default"
+                // Texto responsive: text-2xl en móvil, 3xl en desktop
+                className="text-2xl md:text-3xl font-black tracking-tighter text-transparent bg-clip-text hover:scale-105 transition-transform cursor-default"
                 style={{ 
                     backgroundImage: isCozy 
-                        ? 'linear-gradient(to right, var(--accent-a), var(--accent-b))' // Naranja a Dorado
-                        : 'linear-gradient(to right, #60a5fa, #a855f7)' // Azul a Violeta (Hardcoded para modo normal)
+                        ? 'linear-gradient(to right, var(--accent-a), var(--accent-b))'
+                        : 'linear-gradient(to right, #60a5fa, #a855f7)'
                 }}
             >
               {contactInfo.name}
             </h1>
-            <p className="text-slate-400 text-sm font-mono transition-colors" style={{ color: isCozy ? '#fdba74' : '#94a3b8' }}>
+            <p className="text-slate-400 text-xs md:text-sm font-mono transition-colors" style={{ color: isCozy ? '#fdba74' : '#94a3b8' }}>
                 {contactInfo.role}
             </p>
           </div>
           
-          <div className="flex gap-3">
+          {/* Iconos sociales más compactos */}
+          <div className="flex gap-2 md:gap-3 flex-wrap justify-center">
             {[
-              { icon: <Mail size={18} />, href: `mailto:${contactInfo.email}` },
-              { icon: <Linkedin size={18} />, href: `https://${contactInfo.linkedin}` },
-              { icon: <Github size={18} />, href: `https://${contactInfo.github}` }
+              { icon: <Mail size={16} />, href: `mailto:${contactInfo.email}` }, // Iconos size 16 base
+              { icon: <Linkedin size={16} />, href: `https://${contactInfo.linkedin}` },
+              { icon: <Github size={16} />, href: `https://${contactInfo.github}` }
             ].map((social, i) => (
               <motion.a 
                 key={i}
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 href={social.href} target="_blank" rel="noreferrer"
-                className="p-3 rounded-full transition-colors border"
+                // Padding reducido p-2 en móvil
+                className="p-2 md:p-3 rounded-full transition-colors border"
                 style={{ 
                     backgroundColor: isCozy ? 'rgba(249, 115, 22, 0.1)' : 'rgba(255, 255, 255, 0.05)',
                     borderColor: isCozy ? 'rgba(249, 115, 22, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                     color: isCozy ? '#fdba74' : 'inherit'
                 }}
               >
-                {social.icon}
+                {/* En desktop los iconos crecen un poco con la clase md:w-auto */}
+                <div className="md:scale-110">{social.icon}</div>
               </motion.a>
             ))}
             
             <motion.a 
               href="/Leandro_Serrano_CV.pdf" download
               whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2 text-white rounded-full font-bold shadow-lg transition-all ml-2"
+              className="flex items-center gap-2 px-4 py-2 text-xs md:text-sm text-white rounded-full font-bold shadow-lg transition-all ml-1 md:ml-2"
               style={{
-                  backgroundColor: isCozy ? 'var(--accent-a)' : '#2563eb', // Naranja vs Azul
+                  backgroundColor: isCozy ? 'var(--accent-a)' : '#2563eb',
                   boxShadow: isCozy ? '0 10px 15px -3px rgba(249, 115, 22, 0.3)' : '0 10px 15px -3px rgba(37, 99, 235, 0.3)'
               }}
             >
-              <Download size={18} /> CV
+              <Download size={16} /> CV
             </motion.a>
           </div>
         </div>
@@ -214,17 +219,16 @@ const Portfolio = () => {
 
       {/* <--- 4. ENVOLVEMOS EL MAIN EN UN MOTION.DIV PARA LA ANIMACIÓN DE FLOTAR */}
       <motion.main 
-        // Si está cozy, aplicamos la animación de flotar definida en CSS
-        className={`relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 space-y-24 ${isCozy ? 'animate-float' : ''}`}
-        // Una transición suave al activar el modo
+        // Aumentamos el padding top en móvil (pt-36) porque el header ahora es de dos pisos
+        className={`relative z-10 max-w-6xl mx-auto px-4 md:px-6 pt-36 md:pt-32 pb-20 space-y-16 md:space-y-24 ${isCozy ? 'animate-float' : ''}`}
         animate={{ y: isCozy ? [0, -10, 0] : 0 }}
         transition={{ duration: 2, ease: "easeInOut" }}
       >
         
-        {/* --- HERO SECTION --- */}
-        <section className="grid md:grid-cols-12 gap-12 items-center">
+        {/* --- HERO SECTION RESPONSIVE --- */}
+        <section className="grid md:grid-cols-12 gap-8 md:gap-12 items-center">
           <motion.div 
-            className="md:col-span-7 space-y-6"
+            className="md:col-span-7 space-y-4 md:space-y-6 text-center md:text-left" // Centrado en móvil
             initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}
           >
             <div 
@@ -238,11 +242,13 @@ const Portfolio = () => {
                Open to Work
             </div>
             
-            <h2 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+            {/* AQUÍ ESTÁ LA CLAVE: text-4xl en móvil, text-6xl en desktop */}
+            <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
               Código <span className="text-transparent bg-clip-text" style={{ backgroundImage: isCozy ? 'linear-gradient(to right, var(--accent-a), var(--accent-b))' : 'linear-gradient(to right, #22d3ee, #2563eb)' }}>Sólido</span>. <br />
               Impacto <span className="text-transparent bg-clip-text" style={{ backgroundImage: isCozy ? 'linear-gradient(to right, var(--accent-b), var(--accent-a))' : 'linear-gradient(to right, #c084fc, #db2777)' }}>Visual</span>.
             </h2>
-            <p className="text-lg leading-relaxed max-w-2xl border-l-4 pl-4 transition-colors"
+            
+            <p className="text-base md:text-lg leading-relaxed max-w-2xl mx-auto md:mx-0 border-l-4 pl-4 transition-colors text-left"
                style={{ 
                    color: isCozy ? '#fdba74' : '#94a3b8',
                    borderColor: isCozy ? 'var(--accent-a)' : 'rgba(59, 130, 246, 0.5)'
@@ -251,7 +257,7 @@ const Portfolio = () => {
               {contactInfo.summary}
             </p>
 
-            <div className="flex items-center gap-4 text-sm font-mono" style={{ color: isCozy ? '#fdba74' : '#64748b' }}>
+            <div className="flex justify-center md:justify-start items-center gap-4 text-sm font-mono" style={{ color: isCozy ? '#fdba74' : '#64748b' }}>
               <span className="flex items-center gap-2">
                 <MapPin size={14} style={{ color: isCozy ? 'var(--accent-a)' : '#06b6d4' }} /> {contactInfo.location}
               </span>
