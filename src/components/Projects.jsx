@@ -42,6 +42,17 @@ const Projects = ({ isCozy }) => {
       imageKey: 'pomodoro',
     },
     {
+      title: 'TaskFlow',
+      category: 'web',
+      tech: ['Next.js 16', 'Turso', 'Drizzle', 'DND-Kit'],
+      description: 'Modern Kanban task manager with drag & drop, subtasks with progress bars, dark mode, command palette (Ctrl+K), and instant CRUD via Server Actions. Deployed on Vercel edge.',
+      descriptionEs: 'Gestor de tareas Kanban moderno con drag & drop, subtareas con barras de progreso, modo oscuro, command palette (Ctrl+K) y CRUD instantáneo vía Server Actions. Desplegado en Vercel edge.',
+      highlight: true,
+      repoUrl: 'https://github.com/lenase0077/crud-moderno-js',
+      date: '2025-01',
+      imageKey: 'taskflow',
+    },
+    {
       title: 'Prediction Models',
       category: 'python',
       tech: ['Python', 'Scikit-learn', 'Pandas'],
@@ -199,7 +210,16 @@ const Projects = ({ isCozy }) => {
                     borderBottom: `1px solid ${isCozy ? 'rgba(230,57,70,0.1)' : 'rgba(232,93,4,0.1)'}`,
                   }}
                 >
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6">
+                  <img
+                    src={`/projects/${project.imageKey}.jpg`}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextElementSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="absolute inset-0 flex-col items-center justify-center gap-3 p-6 hidden" data-placeholder>
                     <div
                       className="w-14 h-14 rounded-2xl flex items-center justify-center border"
                       style={{
@@ -216,14 +236,6 @@ const Projects = ({ isCozy }) => {
                     >
                       {t(`imagePlaceholders.${project.imageKey}`)}
                     </p>
-                  </div>
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                    <span
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-sm"
-                      style={{ fontFamily: 'var(--font-mono)', color: '#fff' }}
-                    >
-                      {t('hoverPreview')}
-                    </span>
                   </div>
                 </div>
 

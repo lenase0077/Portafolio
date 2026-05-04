@@ -130,39 +130,17 @@ const Hero = ({ isCozy, contactInfo }) => {
                 style={{ background: 'var(--accent-a)' }}
               />
 
-              {/* Avatar Placeholder */}
-              <div className="flex flex-col items-center text-center space-y-4">
-                <div
-                  className="w-24 h-24 md:w-28 md:h-28 rounded-2xl border-2 flex items-center justify-center relative overflow-hidden"
-                  style={{
-                    borderColor: isCozy ? 'rgba(230, 57, 70, 0.3)' : 'rgba(232, 93, 4, 0.3)',
-                    background: isCozy
-                      ? 'linear-gradient(135deg, rgba(230,57,70,0.1) 0%, rgba(244,162,97,0.1) 100%)'
-                      : 'linear-gradient(135deg, rgba(232,93,4,0.1) 0%, rgba(255,186,8,0.1) 100%)',
-                  }}
-                >
-                  <span
-                    className="text-3xl font-bold"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--accent-soft)' }}
-                  >
-                    LS
-                  </span>
-                  <div
-                    className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded text-[9px] font-mono uppercase tracking-wider"
-                    style={{
-                      background: isCozy ? 'rgba(230,57,70,0.2)' : 'rgba(232,93,4,0.2)',
-                      color: 'var(--accent-soft)',
-                    }}
-                  >
-                    IMG
+                  {/* Avatar */}
+                  <div className="flex flex-col items-center text-center space-y-4">
+                    <img
+                      src="/tu-foto.jpg"
+                      alt="Leandro Serrano"
+                      className="w-24 h-24 md:w-28 md:h-28 rounded-2xl object-cover border-2"
+                      style={{
+                        borderColor: isCozy ? 'rgba(230, 57, 70, 0.3)' : 'rgba(232, 93, 4, 0.3)',
+                      }}
+                    />
                   </div>
-                </div>
-                <div>
-                  <p className="text-xs" style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
-                    {t('addYourPhoto')}
-                  </p>
-                </div>
-              </div>
 
               {/* Skills Mini */}
               <div className="space-y-3">
