@@ -2,105 +2,316 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- DEFINICIÓN DE VARIABLES DE COLOR --- */
+/* ============================================
+   DESIGN TOKENS — Industrial Cyber / Ember Cozy
+   ============================================ */
 :root {
-  /* Modo Cyber (Por defecto) */
-  --bg-primary: #050505;
-  --accent-a: #3b82f6; /* Azul vibrante */
-  --accent-b: #a855f7; /* Violeta vibrante */
-  --text-glow: 0 0 10px rgba(59, 130, 246, 0.3);
-  --card-bg: rgba(15, 23, 42, 0.6); /* Azul oscuro */
+  /* Cyber Mode (Default) — Digital Mint */
+  --bg-primary: #050807;
+  --bg-surface: #0d120f;
+  --bg-elevated: #141c17;
+
+  --accent-a: #059669;       /* Emerald 600 — deep base */
+  --accent-b: #34d399;       /* Emerald 400 — bright glow */
+  --accent-soft: #6ee7b7;    /* Emerald 300 — soft highlight */
+  --accent-muted: #064e3b;   /* Emerald 900 — deep background tint */
+  --accent-gradient: linear-gradient(135deg, #059669 0%, #34d399 100%);
+
+  --text-primary: #ecfdf5;
+  --text-secondary: #a7f3d0;
+  --text-muted: #6b7280;
+
+  --border-subtle: rgba(52, 211, 153, 0.06);
+  --border-strong: rgba(52, 211, 153, 0.12);
+  --glow-soft: rgba(52, 211, 153, 0.10);
+  --glow-strong: rgba(52, 211, 153, 0.30);
+
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body.cozy-mode {
-  /* Modo Cozy (Cálido) */
-  --bg-primary: #1a0b0b; /* Marrón muy oscuro */
-  --accent-a: #f97316; /* Naranja cálido */
-  --accent-b: #eab308; /* Ámbar/Dorado */
-  --text-glow: 0 0 15px rgba(249, 115, 22, 0.5); /* Glow cálido */
-  --card-bg: rgba(43, 24, 16, 0.6); /* Marrón cálido */
+  /* Cozy Mode — Warm Ember */
+  --bg-primary: #0f0505;
+  --bg-surface: #1c1010;
+  --bg-elevated: #291818;
+
+  --accent-a: #e63946;       /* Coral Red */
+  --accent-b: #f4a261;       /* Sandy Brown */
+  --accent-soft: #f4a261;
+  --accent-muted: #9f1239;
+  --accent-gradient: linear-gradient(135deg, #e63946 0%, #f4a261 100%);
+
+  --text-primary: #fff5f5;
+  --text-secondary: #f4a261;
+  --text-muted: #e76f51;
+
+  --border-subtle: rgba(230, 57, 70, 0.08);
+  --border-strong: rgba(230, 57, 70, 0.15);
+  --glow-soft: rgba(230, 57, 70, 0.10);
+  --glow-strong: rgba(230, 57, 70, 0.25);
 }
 
-/* --- BASE --- */
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--bg-primary); /* Usamos la variable */
-  color: #e2e8f0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
   overflow-x: hidden;
-  transition: background-color 1.5s ease-in-out; /* Transición suave del fondo */
+  transition: background-color 1.2s ease-in-out, color 0.8s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Capa de fondo Cozy (Imagen borrosa Lofi) */
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+::selection {
+  background-color: var(--accent-a);
+  color: #ffffff;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-a);
+  border-radius: 3px;
+  opacity: 0.4;
+}
+
+/* ============================================
+   BACKGROUNDS
+   ============================================ */
 .cozy-bg-layer {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    /* Una imagen de un cuarto lofi cálido, muy borrosa */
-    background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-size: cover;
-    background-position: center;
-    filter: blur(20px) brightness(0.4) sepia(0.5); /* Muy borroso y cálido */
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: url('https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px) brightness(0.35) sepia(0.4);
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  pointer-events: none;
 }
 
-body.cozy-mode .cozy-bg-layer {
-    opacity: 1; /* Aparece en modo cozy */
-}
+body.cozy-mode .cozy-bg-layer { opacity: 1; }
 
-/* La grilla cibernética desaparece en modo cozy */
 .cyber-grid {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-size: 30px 30px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  mask-image: radial-gradient(circle at 50% 50%, black 60%, transparent 100%);
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(52, 211, 153, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(52, 211, 153, 0.03) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 100%);
   pointer-events: none;
-  transition: opacity 1s;
+  transition: opacity 1s ease;
 }
 
-body.cozy-mode .cyber-grid {
-    opacity: 0;
+body.cozy-mode .cyber-grid { opacity: 0; }
+
+.ambient-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 1.2s ease;
 }
 
-
-/* --- UI COMPONENTS ACTUALIZADOS CON VARIABLES --- */
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { 
-    background-color: var(--accent-a); /* El scroll cambia de color */
-    border-radius: 4px; 
-    opacity: 0.5;
+.ambient-orb-1 {
+  width: 500px;
+  height: 500px;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(5, 150, 105, 0.12) 0%, transparent 70%);
 }
 
-/* Tarjetas Glassmorphism adaptables */
+.ambient-orb-2 {
+  width: 600px;
+  height: 600px;
+  bottom: -15%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
+}
+
+body.cozy-mode .ambient-orb-1 {
+  background: radial-gradient(circle, rgba(230, 57, 70, 0.10) 0%, transparent 70%);
+}
+
+body.cozy-mode .ambient-orb-2 {
+  background: radial-gradient(circle, rgba(244, 162, 97, 0.06) 0%, transparent 70%);
+}
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+
 .glass-card {
-  background-color: var(--card-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.5s ease;
+  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.03);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+.glass-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 20px var(--glow-soft), inset 0 1px 0 rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
 body.cozy-mode .glass-card {
-    border-color: rgba(249, 115, 22, 0.2); /* Bordes naranjas en modo cozy */
+  background: linear-gradient(145deg, rgba(28,16,16,0.7) 0%, rgba(15,5,5,0.5) 100%);
 }
 
+.gradient-border {
+  position: relative;
+  background: var(--bg-surface);
+  border-radius: 16px;
+}
 
-/* Efecto hover brillante para textos */
-.text-glow-hover { transition: all 0.3s; }
-.text-glow-hover:hover { text-shadow: var(--text-glow); }
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  padding: 1px;
+  background: var(--accent-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
 
-/* Animaciones */
+.gradient-border:hover::before { opacity: 0.8; }
+
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-glow { text-shadow: 0 0 20px var(--glow-soft); }
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.mono-detail {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
 @keyframes float-gentle {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
-.animate-float {
-    animation: float-gentle 6s ease-in-out infinite;
+
+.animate-float { animation: float-gentle 5s ease-in-out infinite; }
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-soft { animation: pulse-soft 3s ease-in-out infinite; }
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ============================================
+   CURSOR
+   ============================================ */
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: var(--accent-a);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: difference;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--accent-a);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  body a, body button { cursor: none; }
 }
