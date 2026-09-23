@@ -1,16 +1,50 @@
-# React + Vite
+# Leandro Serrano — 3D Cozy Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Warm wooden study at dusk. Interactive Three.js portfolio with bilingual content (ES/EN).
 
-Currently, two official plugins are available:
+## Quick start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+System `node`/`npm` may be missing. Use the managed runtime wrappers:
 
-## React Compiler
+```powershell
+# Windows PowerShell
+.\scripts\dev.ps1
+.\scripts\build.ps1
+.\scripts\lint.ps1
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```powershell
+# Or call npm through managed Node
+& $env:MIMO_NODE $env:MIMO_NPM run dev
+```
 
-## Expanding the ESLint configuration
+If Node is on PATH:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Architecture
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for layers, design patterns, and how to add a chapter.
+
+```
+src/
+  app/        # providers + composition root
+  features/   # overlay, story-panel (strategy)
+  scene/      # three.js study (materials factory, furniture, camera, hotspots)
+  domain/     # pure content + i18n strings
+  data/       # ContentRepository
+  shared/     # utils, hooks, ui atoms
+  styles/     # tokens, base, components
+```
+
+## Scripts
+
+| Script | Purpose |
+|---|---|
+| `scripts/dev.ps1` | Vite dev server |
+| `scripts/build.ps1` | Production build → `dist/` |
+| `scripts/lint.ps1` | ESLint |
+| `scripts/npm.ps1` | Managed npm passthrough |
