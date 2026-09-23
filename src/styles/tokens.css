@@ -1,0 +1,25 @@
+:root {
+  --bg-night: #14100c;
+  --bg-panel: #1e1812;
+  --bg-elevated: #2a2118;
+  --wood-dark: #3a2c20;
+  --wood-mid: #8b5e3c;
+  --wood-light: #c4956a;
+  --amber: #e8a85c;
+  --amber-soft: #f5d9a0;
+  --forest: #3d5c4a;
+  --dusk: #5b7fa3;
+  --cream: #f2e6d0;
+  --parchment: #a89880;
+  --ember: #c45c3a;
+  --paper: #e8d9b8;
+
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.45);
+  --shadow-panel: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --radius: 14px;
+  --radius-sm: 10px;
+}
